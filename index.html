@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>婚礼相册 | Wedding Photography</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #d4af37;
+    --dark-bg: #0a0e27;
+    --light-text: #f5f5f5;
+    --accent: #c41e3a;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--dark-bg);
+    color: var(--light-text);
+    overflow-x: hidden;
+}
+
+/* 导航栏 */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(10, 14, 39, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 40px;
+}
+
+nav a {
+    color: var(--light-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+nav a:hover, nav a.active {
+    color: var(--primary-color);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* 主容器 */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+/* Hero 部分 */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--dark-bg) 0%, #1a1f3a 100%);
+    position: relative;
+    overflow: hidden;
+    margin-top: 60px;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    top: -100px;
+    right: -100px;
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(196, 30, 58, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+    bottom: -50px;
+    left: -50px;
+    animation: float 8s ease-in-out infinite reverse;
+}
+
+.hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeInUp 1s ease-out;
+}
+
+.hero h1 {
+    font-size: 72px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--primary-color), #f5f5f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 2px;
+}
+
+.hero .subtitle {
+    font-size: 24px;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.hero p {
+    font-size: 18px;
+    color: #bbb;
+    margin-bottom: 50px;
+    max-width: 600px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 50px;
+    background: var(--primary-color);
+    color: var(--dark-bg);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+}
+
+.cta-button:hover {
+    background: transparent;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+}
+
+/* 部分标题 */
+.section-title {
+    text-align: center;
+    margin: 100px 0 60px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.section-title h2 {
+    font-size: 48px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, var(--primary-color), #f5f5f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-title .divider {
+    width: 80px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 20px auto 0;
+}
+
+/* 照片库 */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin: 60px 0;
+}
+
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.gallery-item:hover {
+    transform: scale(1.02);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(212, 175, 55, 0.3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay i {
+    font-size: 48px;
+    color: white;
+}
+
+.gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(10, 14, 39, 0.95), transparent);
+    padding: 40px 20px 20px;
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-caption {
+    transform: translateY(0);
+}
+
+.gallery-caption p {
+    font-size: 16px;
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+/* 灯箱 */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox-content {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    animation: zoomIn 0.3s ease;
+}
+
+.lightbox-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: -50px;
+    right: 0;
+    color: var(--primary-color);
+    font-size: 36px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.2);
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+    font-size: 36px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 20px;
+    z-index: 2001;
+}
+
+.lightbox-nav:hover {
+    transform: translateY(-50%) scale(1.2);
+}
+
+.lightbox-prev {
+    left: -80px;
+}
+
+.lightbox-next {
+    right: -80px;
+}
+
+.lightbox-caption {
+    text-align: center;
+    color: var(--primary-color);
+    margin-top: 20px;
+    font-size: 16px;
+}
+
+.lightbox-counter {
+    position: absolute;
+    bottom: -40px;
+    right: 0;
+    color: #999;
+    font-size: 14px;
+}
+
+/* 关于部分 */
+.about {
+    padding: 100px 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about-content h3 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.about-content p {
+    font-size: 16px;
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.about-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    aspect-ratio: 3/4;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.about-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 统计数字 */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin: 100px 0;
+    text-align: center;
+}
+
+.stat-item {
+    padding: 30px;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.stat-number {
+    font-size: 48px;
+    color: var(--primary-color);
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.stat-label {
+    color: #bbb;
+    font-size: 14px;
+}
+
+/* 页脚 */
+footer {
+    background: rgba(212, 175, 55, 0.05);
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 60px 0 30px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.footer-content {
+    margin-bottom: 30px;
+}
+
+.footer-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.footer-content p {
+    color: #999;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(212, 175, 55, 0.2);
+    border-radius: 50%;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: var(--primary-color);
+    color: var(--dark-bg);
+    transform: translateY(-3px);
+}
+
+.copyright {
+    color: #666;
+    font-size: 12px;
+    padding-top: 30px;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* 动画 */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(20px);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    nav ul {
+        gap: 20px;
+    }
+
+    .hero h1 {
+        font-size: 42px;
+    }
+
+    .hero .subtitle {
+        font-size: 18px;
+    }
+
+    .section-title h2 {
+        font-size: 32px;
+    }
+
+    .gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .lightbox-prev, .lightbox-next {
+        font-size: 24px;
+    }
+
+    .lightbox-prev {
+        left: -40px;
+    }
+
+    .lightbox-next {
+        right: -40px;
+    }
+}
+
+/* 滚动时的淡入效果 */
+.fade-in-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease-out;
+}
+
+.fade-in-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<!-- 导航栏 -->
+<header>
+    <nav class="container">
+        <div class="logo">WEDDING</div>
+        <ul>
+            <li><a href="#home" class="nav-link active">首页</a></li>
+            <li><a href="#gallery" class="nav-link">相册</a></li>
+            <li><a href="#about" class="nav-link">关于</a></li>
+            <li><a href="#contact" class="nav-link">联系</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Hero 部分 -->
+<section class="hero" id="home">
+    <div class="hero-content">
+        <h1>这一刻，值得被记住</h1>
+        <div class="subtitle">LOVE IN EVERY FRAME</div>
+        <p>用光影记录爱的故事，让时间留下温度</p>
+        <a href="#gallery" class="cta-button">浏览相册</a>
+    </div>
+</section>
+
+<!-- 照片库部分 -->
+<section class="container" id="gallery">
+    <div class="section-title fade-in-on-scroll">
+        <h2>我们的故事</h2>
+        <div class="divider"></div>
+    </div>
+
+    <!-- 第一组：前期约拍 -->
+    <div class="section-title fade-in-on-scroll" style="margin: 80px 0 40px;">
+        <h3 style="font-size: 28px; color: var(--primary-color);">前期约拍</h3>
+    </div>
+    <div class="gallery" id="gallery-pre">
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(0)">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=600&fit=crop" alt="约拍 1">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>秋日漫步 · 相拥而行</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(1)">
+            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=500&h=600&fit=crop" alt="约拍 2">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>夕阳下的低语</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(2)">
+            <img src="https://images.unsplash.com/photo-1502764613149-7f3d7dc5d42b?w=500&h=600&fit=crop" alt="约拍 3">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>海边的承诺</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(3)">
+            <img src="https://images.unsplash.com/photo-1528699984654-51e6a19da9d9?w=500&h=600&fit=crop" alt="约拍 4">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>城市的浪漫</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(4)">
+            <img src="https://images.unsplash.com/photo-1519225421-dee8426f8f10?w=500&h=600&fit=crop" alt="约拍 5">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>雨中的温柔</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(5)">
+            <img src="https://images.unsplash.com/photo-1508762590935-d780188ecaa0?w=500&h=600&fit=crop" alt="约拍 6">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>日落时分的眼神</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第二组：婚礼当天 -->
+    <div class="section-title fade-in-on-scroll" style="margin: 80px 0 40px;">
+        <h3 style="font-size: 28px; color: var(--primary-color);">婚礼当天</h3>
+    </div>
+    <div class="gallery" id="gallery-wedding">
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(6)">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=600&fit=crop" alt="婚礼 1">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>她笑的时候，整个世界都柔软了</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(7)">
+            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=500&h=600&fit=crop" alt="婚礼 2">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>光落在她身上，像一场温柔的告白</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(8)">
+            <img src="https://images.unsplash.com/photo-1502764613149-7f3d7dc5d42b?w=500&h=600&fit=crop" alt="婚礼 3">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>交换戒指，交换一生的承诺</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(9)">
+            <img src="https://images.unsplash.com/photo-1528699984654-51e6a19da9d9?w=500&h=600&fit=crop" alt="婚礼 4">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>那个亲吻，承载了所有的爱</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(10)">
+            <img src="https://images.unsplash.com/photo-1519225421-dee8426f8f10?w=500&h=600&fit=crop" alt="婚礼 5">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>宾客见证的幸福时刻</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(11)">
+            <img src="https://images.unsplash.com/photo-1508762590935-d780188ecaa0?w=500&h=600&fit=crop" alt="婚礼 6">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>细小的瞬间，婚礼真正的意义</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 第三组：细节·特写 -->
+    <div class="section-title fade-in-on-scroll" style="margin: 80px 0 40px;">
+        <h3 style="font-size: 28px; color: var(--primary-color);">细节·特写</h3>
+    </div>
+    <div class="gallery" id="gallery-details">
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(12)">
+            <img src="https://images.unsplash.com/photo-1519225421-dee8426f8f10?w=500&h=600&fit=crop" alt="细节 1">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>戒指与承诺</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(13)">
+            <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?w=500&h=600&fit=crop" alt="细节 2">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>婚纱的每一丝</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(14)">
+            <img src="https://images.unsplash.com/photo-1502764613149-7f3d7dc5d42b?w=500&h=600&fit=crop" alt="细节 3">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>芬芳的花束</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(15)">
+            <img src="https://images.unsplash.com/photo-1528699984654-51e6a19da9d9?w=500&h=600&fit=crop" alt="细节 4">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>优雅的舞步</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(16)">
+            <img src="https://images.unsplash.com/photo-1519225421-dee8426f8f10?w=500&h=600&fit=crop" alt="细节 5">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>笑容是最好的妆容</p>
+            </div>
+        </div>
+
+        <div class="gallery-item fade-in-on-scroll" onclick="openLightbox(17)">
+            <img src="https://images.unsplash.com/photo-1508762590935-d780188ecaa0?w=500&h=600&fit=crop" alt="细节 6">
+            <div class="gallery-overlay">
+                <i class="fas fa-search-plus"></i>
+            </div>
+            <div class="gallery-caption">
+                <p>情感的真实记录</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 统计数字 -->
+    <div class="stats">
+        <div class="stat-item fade-in-on-scroll">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">精选照片</div>
+        </div>
+        <div class="stat-item fade-in-on-scroll">
+            <div class="stat-number">1000+</div>
+            <div class="stat-label">满意新人</div>
+        </div>
+        <div class="stat-item fade-in-on-scroll">
+            <div class="stat-number">5</div>
+            <div class="stat-label">摄影师</div>
+        </div>
+        <div class="stat-item fade-in-on-scroll">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">服务年限</div>
+        </div>
+    </div>
+</section>
+
+<!-- 关于部分 -->
+<section class="container" id="about">
+    <div class="section-title fade-in-on-scroll">
+        <h2>关于我们</h2>
+        <div class="divider"></div>
+    </div>
+
+    <div class="about">
+        <div class="about-content fade-in-on-scroll">
+            <h3>用心记录每一个时刻</h3>
+            <p>我们相信，婚礼是人生中最特殊的时刻。每一个眼神、每一个触碰、每一个笑容，都值得被永远铭记。</p>
+            <p>我们不仅是摄影师，更是故事的讲述者。通过镜头，我们捕捉爱的本质，记录属于你们独特的爱情故事。</p>
+            <p>从前期咨询、拍摄当天到后期制作，我们全程用心服务，确保每一张照片都能完美展现你们的爱。</p>
+        </div>
+
+        <div class="about-image fade-in-on-scroll">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&h=600&fit=crop" alt="关于我们">
+        </div>
+    </div>
+</section>
+
+<!-- 联系部分 -->
+<section class="container" id="contact">
+    <div class="section-title fade-in-on-scroll">
+        <h2>联系我们</h2>
+        <div class="divider"></div>
+    </div>
+
+    <div style="text-align: center; padding: 60px 0; margin-bottom: 60px;">
+        <p style="font-size: 18px; margin-bottom: 30px; color: #ccc;">准备好见证你们的爱情故事了吗？</p>
+        <p style="font-size: 16px; color: var(--primary-color); margin-bottom: 20px;">📧 contact@wedding.com</p>
+        <p style="font-size: 16px; color: var(--primary-color); margin-bottom: 30px;">📱 +86 138 0000 0000</p>
+        <a href="mailto:contact@wedding.com" class="cta-button">获取报价</a>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <h3>WEDDING PHOTOGRAPHY</h3>
+            <p>用光影记录爱的故事，让时间留下温度</p>
+        </div>
+
+        <div class="social-links">
+            <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="WeChat"><i class="fab fa-weixin"></i></a>
+            <a href="#" title="微博"><i class="fab fa-weibo"></i></a>
+        </div>
+
+        <div class="copyright">
+            <p>© 2026 WEDDING STUDIO. All rights reserved. | 用心为你记录最美的时刻</p>
+        </div>
+    </div>
+</footer>
+
+<!-- 灯箱 -->
+<div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <span class="lightbox-prev" onclick="prevImage()">&#10094;</span>
+        <img id="lightbox-img" src="" alt="">
+        <span class="lightbox-next" onclick="nextImage()">&#10095;</span>
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+        <div class="lightbox-counter"><span id="current-img">1</span> / <span id="total-img">18</span></div>
+    </div>
+</div>
+
+<script>
+// 所有图片数据
+const images = [
+    { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=1000&fit=crop', caption: '秋日漫步 · 相拥而行' },
+    { src: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&h=1000&fit=crop', caption: '夕阳下的低语' },
+    { src: 'https://images.unsplash.com/photo-1502764613149-7f3d7dc5d42b?w=800&h=1000&fit=crop', caption: '海边的承诺' },
+    { src: 'https://images.unsplash.com/photo-1528699984654-51e6a19da9d9?w=800&h=1000&fit=crop', caption: '城市的浪漫' },
+    { src: 'https://images.unsplash.com/photo-1519225421-dee8426f8f10?w=800&h=1000&fit=crop', caption: '雨中的温柔' },
+    { src: 'https://images.unsplash.com/photo-1508762590935-d780188ecaa0?w=800&h=1000&fit=crop', caption: '日落时分的眼神' },
+    { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&h=1000&fit=crop', caption: '她笑的时候，整个世界都柔软了' },
+    { src: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&h=1000&fit=crop', caption: '光落在她身上，像一场温柔的告白' },
+    { src: 'https://images.unsplash.com/photo-1502764613149-7f3d7dc5d42b?w=800&h=1000&fit=crop', caption: '交换戒指，交换一生的承诺' },
+    { src: 'https://images.unsplash.com/photo-1528699984654-51e6a19da9d9?w=800&h=1000&fit=crop', caption: '那个亲吻，承载了所有的爱' },
+    { src: 'https://images.unsplash.com/photo-1519225421-dee8426f8f10?w=800&h=1000&fit=crop', caption: '宾客见证的幸福时刻' },
+    { src: 'https://images.unsplash.com/photo-1508762590935-d780188ecaa0?w=800&h=1000&fit=crop', caption: '细小的瞬间，婚礼真正的意义' },
+    { src: 'https://images.unsplash.com/photo-1519225421-dee8426f8f10?w=800&h=1000&fit=crop', caption: '戒指与承诺' },
+    { src: 'https://images.unsplash.com/photo-1511895426328-dc8714191300?w=800&h=1000&fit=crop', caption: '婚纱的每一丝' },
+    { src: 'https://images.unsplash.com/photo-1502764613149-7f3d7dc5d42b?w=800&h=1000&fit=crop', caption: '芬芳的花束' },
+    { src: 'https://images.unsplash.com/photo-1528699984654-51e6a19da9d9?w=800&h=1000&fit=crop', caption: '优雅的舞步' },
+    { src: 'https://images.unsplash.com/photo-1519225421-dee8426f8f10?w=800&h=1000&fit=crop', caption: '笑容是最好的妆容' },
+    { src: 'https://images.unsplash.com/photo-1508762590935-d780188ecaa0?w=800&h=1000&fit=crop', caption: '情感的真实记录' }
+];
+
+let currentImageIndex = 0;
+
+// 打开灯箱
+function openLightbox(index) {
+    currentImageIndex = index;
+    const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const caption = document.getElementById('lightbox-caption');
+    const current = document.getElementById('current-img');
+    
+    img.src = images[index].src;
+    caption.textContent = images[index].caption;
+    current.textContent = index + 1;
+    
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+// 关闭灯箱
+function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+// 下一张图片
+function nextImage() {
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+    openLightbox(currentImageIndex);
+}
+
+// 上一张图片
+function prevImage() {
+    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+    openLightbox(currentImageIndex);
+}
+
+// 键盘控制
+document.addEventListener('keydown', (e) => {
+    if (document.getElementById('lightbox').classList.contains('active')) {
+        if (e.key === 'ArrowRight') nextImage();
+        if (e.key === 'ArrowLeft') prevImage();
+        if (e.key === 'Escape') closeLightbox();
+    }
+});
+
+// 点击灯箱外部关闭
+document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') closeLightbox();
+});
+
+// 滚动时淡入效果
+const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
+    observer.observe(el);
+});
+
+// 导航链接活跃状态
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+    let current = '';
+    const sections = document.querySelectorAll('section');
+    
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 200) {
+            current = section.getAttribute('id');
+        }
+    });
+    
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+            link.classList.add('active');
+        }
+    });
+});
+
+// 初始化总照片数
+document.getElementById('total-img').textContent = images.length;
+</script>
+
+</body>
+</html>
